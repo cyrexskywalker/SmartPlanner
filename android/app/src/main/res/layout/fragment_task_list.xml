@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:padding="16dp"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+        <TextView
+                android:id="@+id/textTitleTasks"
+                android:layout_width="134dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Задачи"
+                android:textSize="26sp"
+                android:textStyle="bold"/>
+
+        <CheckBox
+                android:id="@+id/checkSortHighFirst"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="Важные"/>
+        <ImageButton
+                android:id="@+id/buttonAdd"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@android:color/transparent"
+                android:src="@android:drawable/ic_input_add"
+                android:contentDescription="Добавить" />
+    </LinearLayout>
+
+    <TextView
+            android:id="@+id/textEmpty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Задач нет"
+            android:visibility="gone"
+            android:layout_marginTop="24dp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerTasks"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_marginTop="8dp" />
+
+</LinearLayout>
