@@ -38,7 +38,9 @@ class TaskListFragment : Fragment() {
         addButton = view.findViewById(R.id.buttonAdd)
         sortCheckBox = view.findViewById(R.id.checkSortHighFirst)
 
-        adapter = TaskAdapter(TaskRepository.getGroupedItems())
+        adapter = TaskAdapter(TaskRepository.getGroupedItems()) {
+            reloadList()
+        }
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = adapter
 

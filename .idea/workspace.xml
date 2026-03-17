@@ -4,7 +4,27 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b7385bb8-e98c-4969-bfbb-dfc810845bd0" name="Changes" comment="" />
+    <list default="true" id="b7385bb8-e98c-4969-bfbb-dfc810845bd0" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/java/com/example/smartplanner/data/TaskRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/java/com/example/smartplanner/data/TaskRepository.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/java/com/example/smartplanner/model/Task.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/java/com/example/smartplanner/model/Task.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/java/com/example/smartplanner/ui/home/HomeFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/java/com/example/smartplanner/ui/home/HomeFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/java/com/example/smartplanner/ui/tasks/AddTaskActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/java/com/example/smartplanner/ui/tasks/AddTaskActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/java/com/example/smartplanner/ui/tasks/TaskAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/java/com/example/smartplanner/ui/tasks/TaskAdapter.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/java/com/example/smartplanner/ui/tasks/TaskListFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/java/com/example/smartplanner/ui/tasks/TaskListFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/layout/activity_add_task.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/res/layout/activity_add_task.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/layout/fragment_home.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/res/layout/fragment_home.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/layout/item_task.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/res/layout/item_task.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/menu/bottom_nav_menu.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/res/menu/bottom_nav_menu.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/res/values/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/SmartPlanner/ContentView.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ios/SmartPlanner/ContentView.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/SmartPlanner/Models/TaskModels.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ios/SmartPlanner/Models/TaskModels.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/SmartPlanner/ViewModels/TasksViewModel.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ios/SmartPlanner/ViewModels/TasksViewModel.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/SmartPlanner/Views/Tasks/EditTaskView.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ios/SmartPlanner/Views/Tasks/EditTaskView.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/SmartPlanner/Views/Tasks/TaskRowView.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ios/SmartPlanner/Views/Tasks/TaskRowView.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/SmartPlanner/Views/Tasks/TasksScreen.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ios/SmartPlanner/Views/Tasks/TasksScreen.swift" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -38,18 +58,19 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "hw1",
-    "kotlin-language-version-configured": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;hw1&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/dmitriy/Documents/GitHub/SmartPlanner&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$" />

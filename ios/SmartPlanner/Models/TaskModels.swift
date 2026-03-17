@@ -1,6 +1,18 @@
 import Foundation
 import SwiftUI
 
+struct SubtaskModel: Identifiable, Equatable {
+    let id: UUID
+    var title: String
+    var isDone: Bool
+
+    init(id: UUID = UUID(), title: String, isDone: Bool = false) {
+        self.id = id
+        self.title = title
+        self.isDone = isDone
+    }
+}
+
 enum TaskPriority: Int, CaseIterable, Identifiable {
     case low = 0
     case medium = 1
@@ -34,6 +46,7 @@ struct TaskModel: Identifiable, Equatable {
     var hasDeadline: Bool
     var deadline: Date?
     var isDone: Bool
+    var subtasks: [SubtaskModel]
 
     init(
         id: UUID = UUID(),
@@ -43,7 +56,8 @@ struct TaskModel: Identifiable, Equatable {
         isFlagged: Bool = false,
         hasDeadline: Bool = false,
         deadline: Date? = nil,
-        isDone: Bool = false
+        isDone: Bool = false,
+        subtasks: [SubtaskModel] = []
     ) {
         self.id = id
         self.title = title
@@ -53,6 +67,7 @@ struct TaskModel: Identifiable, Equatable {
         self.hasDeadline = hasDeadline
         self.deadline = deadline
         self.isDone = isDone
+        self.subtasks = subtasks
     }
 }
 

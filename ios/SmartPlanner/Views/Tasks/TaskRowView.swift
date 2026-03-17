@@ -4,6 +4,7 @@ struct TaskRowView: View {
     let task: TaskModel
     let dateFormatter: DateFormatter
     let onToggleDone: () -> Void
+    let onToggleSubtask: (UUID) -> Void
 
     var body: some View {
         HStack(alignment: .top, spacing: 12) {
@@ -21,6 +22,7 @@ struct TaskRowView: View {
                 HStack {
                     Text(task.title)
                         .font(.headline)
+                        .strikethrough(task.isDone)
                     Spacer()
                     if task.isFlagged {
                         Text("!")
@@ -33,6 +35,28 @@ struct TaskRowView: View {
                     Text(task.description)
                         .font(.subheadline)
                         .foregroundColor(.gray)
+                        .strikethrough(task.isDone)
+                }
+
+                if !task.subtasks.isEmpty {
+                    VStack(alignment: .leading, spacing: 8) {
+                        ForEach(task.subtasks) { subtask in
+                            Button {
+                                onToggleSubtask(subtask.id)
+                            } label: {
+                                HStack(spacing: 8) {
+                                    Image(systemName: subtask.isDone ? "checkmark.circle.fill" : "circle")
+                                        .foregroundColor(subtask.isDone ? .blue : .gray)
+                                    Text(subtask.title)
+                                        .font(.subheadline)
+                                        .foregroundColor(.primary)
+                                        .strikethrough(subtask.isDone)
+                                    Spacer()
+                                }
+                            }
+                            .buttonStyle(.plain)
+                        }
+                    }
                 }
 
                 HStack(spacing: 6) {

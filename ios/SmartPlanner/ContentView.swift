@@ -5,10 +5,10 @@ struct ContentView: View {
 
     var body: some View {
         TabView {
-            Text("Главная")
+            NewsScreen()
                 .tabItem {
-                    Image(systemName: "house")
-                    Text("Главная")
+                    Image(systemName: "newspaper")
+                    Text("Новости")
                 }
 
             TasksScreen()
