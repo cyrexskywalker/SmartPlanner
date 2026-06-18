@@ -57,4 +57,11 @@ object TaskRepository {
     fun hasTasks(): Boolean {
         return tasks.isNotEmpty()
     }
+
+    internal fun clearForTests() {
+        tasks.clear()
+        nextId = 1L
+        nextSubtaskId = 1L
+        highFirst = true
+    }
 }

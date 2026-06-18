@@ -36,6 +36,26 @@ class TaskGroupingServiceTest {
         assertEquals(listOf(TaskPriority.LOW, TaskPriority.MEDIUM, TaskPriority.HIGH), groups.map { it.priority })
     }
 
+    @Test
+    fun groupByPriority_returnsEmptyListForNoTasks() {
+        val groups = service.groupByPriority(emptyList(), highFirst = true)
+
+        assertEquals(emptyList<TaskPriority>(), groups.map { it.priority })
+    }
+
+    @Test
+    fun groupByPriority_doesNotCreateEmptyPriorityGroups() {
+        val tasks = listOf(
+            task(id = 1, priority = TaskPriority.MEDIUM),
+            task(id = 2, priority = TaskPriority.MEDIUM)
+        )
+
+        val groups = service.groupByPriority(tasks, highFirst = true)
+
+        assertEquals(listOf(TaskPriority.MEDIUM), groups.map { it.priority })
+        assertEquals(listOf(1L, 2L), groups.first().tasks.map { it.id })
+    }
+
     private fun task(id: Long, priority: TaskPriority): Task {
         return Task(
             id = id,

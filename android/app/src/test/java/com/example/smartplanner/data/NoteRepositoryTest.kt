@@ -48,4 +48,24 @@ class NoteRepositoryTest {
 
         assertEquals(listOf("first"), NoteRepository.getNotes().map { it.text })
     }
+
+    @Test
+    fun addNote_assignsStableIncrementalIds() {
+        NoteRepository.addNote("first")
+        NoteRepository.addNote("second")
+
+        val notes = NoteRepository.getNotes()
+
+        assertEquals(2L, notes[0].id)
+        assertEquals(1L, notes[1].id)
+    }
+
+    @Test
+    fun removeNote_ignoresUnknownId() {
+        NoteRepository.addNote("first")
+
+        NoteRepository.removeNote(999L)
+
+        assertEquals(listOf("first"), NoteRepository.getNotes().map { it.text })
+    }
 }

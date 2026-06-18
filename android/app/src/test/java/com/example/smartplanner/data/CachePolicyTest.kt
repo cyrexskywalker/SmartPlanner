@@ -19,4 +19,18 @@ class CachePolicyTest {
         assertFalse(policy.isFresh(savedAtMillis = 3_999))
         assertFalse(policy.isFresh(savedAtMillis = 0))
     }
+
+    @Test
+    fun isFresh_returnsTrueOnExactExpirationBoundary() {
+        val policy = CachePolicy(maxAgeMillis = 1_000, nowProvider = { 5_000 })
+
+        assertTrue(policy.isFresh(savedAtMillis = 4_000))
+    }
+
+    @Test
+    fun isFresh_returnsFalseForNegativeSavedAt() {
+        val policy = CachePolicy(maxAgeMillis = 1_000, nowProvider = { 5_000 })
+
+        assertFalse(policy.isFresh(savedAtMillis = -1))
+    }
 }

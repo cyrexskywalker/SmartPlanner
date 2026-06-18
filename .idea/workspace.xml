@@ -4,19 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b7385bb8-e98c-4969-bfbb-dfc810845bd0" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/src/main/java/com/example/smartplanner/data/NewsCacheStore.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/java/com/example/smartplanner/data/NewsCacheStore.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/src/main/java/com/example/smartplanner/data/TaskRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/java/com/example/smartplanner/data/TaskRepository.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/src/main/java/com/example/smartplanner/model/Task.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/java/com/example/smartplanner/model/Task.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/src/main/java/com/example/smartplanner/ui/home/NewsImageCache.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/java/com/example/smartplanner/ui/home/NewsImageCache.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/src/main/java/com/example/smartplanner/ui/tasks/TaskAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/java/com/example/smartplanner/ui/tasks/TaskAdapter.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/src/main/java/com/example/smartplanner/ui/tasks/TaskListFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/java/com/example/smartplanner/ui/tasks/TaskListFragment.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/src/test/java/com/example/smartplanner/ExampleUnitTest.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/SmartPlannerTests/SmartPlannerTests.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ios/SmartPlannerTests/SmartPlannerTests.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/SmartPlannerUITests/SmartPlannerUITests.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ios/SmartPlannerUITests/SmartPlannerUITests.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/SmartPlannerUITests/SmartPlannerUITestsLaunchTests.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ios/SmartPlannerUITests/SmartPlannerUITestsLaunchTests.swift" afterDir="false" />
-    </list>
+    <list default="true" id="b7385bb8-e98c-4969-bfbb-dfc810845bd0" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -61,7 +49,9 @@
     "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "/Users/dmitriy/Documents/GitHub/SmartPlanner",
-    "node.js.selected.package.tslint": "(autodetect)"
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="RecentsManager">
@@ -73,6 +63,7 @@
     <attachedChunks>
       <set>
         <option value="bundled-jdk-9823dce3aa75-bf35d07a577b-intellij.indexing.shared.core-IU-252.25557.131" />
+        <option value="bundled-js-predefined-d6986cc7102b-b598e85cdad2-JavaScript-IU-252.25557.131" />
       </set>
     </attachedChunks>
   </component>
@@ -83,7 +74,11 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1764515440391</updated>
+      <workItem from="1781791400482" duration="94000" />
     </task>
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
   </component>
 </project>
