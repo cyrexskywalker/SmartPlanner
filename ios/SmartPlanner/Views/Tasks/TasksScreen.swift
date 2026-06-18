@@ -47,6 +47,9 @@ struct TasksScreen: View {
                                             dateFormatter: dateFormatter,
                                             onToggleDone: {
                                                 viewModel.toggleDone(id: task.id)
+                                            },
+                                            onToggleSubtask: { subtaskId in
+                                                viewModel.toggleSubtask(taskId: task.id, subtaskId: subtaskId)
                                             }
                                         )
                                         .padding(.horizontal)

@@ -9,6 +9,7 @@ import com.example.smartplanner.R
 import com.example.smartplanner.data.TaskRepository
 import com.example.smartplanner.model.Task
 import com.example.smartplanner.model.TaskPriority
+import com.example.smartplanner.model.Subtask
 import java.util.Calendar
 import java.util.Locale
 
@@ -21,9 +22,13 @@ class AddTaskActivity : AppCompatActivity() {
     private lateinit var deadlineSwitch: Switch
     private lateinit var deadlineButton: Button
     private lateinit var saveButton: Button
+    private lateinit var subtaskEdit: EditText
+    private lateinit var subtaskAddButton: Button
+    private lateinit var subtaskList: LinearLayout
 
     private var deadlineText: String? = null
     private val calendar: Calendar = Calendar.getInstance()
+    private val subtasks = mutableListOf<Subtask>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +41,9 @@ class AddTaskActivity : AppCompatActivity() {
         deadlineSwitch = findViewById(R.id.switchDeadline)
         deadlineButton = findViewById(R.id.buttonDeadline)
         saveButton = findViewById(R.id.buttonSave)
+        subtaskEdit = findViewById(R.id.editSubtask)
+        subtaskAddButton = findViewById(R.id.buttonAddSubtask)
+        subtaskList = findViewById(R.id.layoutSubtasks)
 
         deadlineButton.isEnabled = false
 
@@ -51,9 +59,15 @@ class AddTaskActivity : AppCompatActivity() {
             showDateTimePickers()
         }
 
+        subtaskAddButton.setOnClickListener {
+            addSubtask()
+        }
+
         saveButton.setOnClickListener {
             saveTask()
         }
+
+        renderSubtasks()
     }
 
     private fun showDateTimePickers() {
@@ -118,10 +132,63 @@ class AddTaskActivity : AppCompatActivity() {
             priority = priority,
             flagged = flagged,
             deadlineText = deadline,
-            done = false
+            done = false,
+            subtasks = subtasks.toList()
         )
 
         TaskRepository.addTask(task)
         finish()
+    }
+
+    private fun addSubtask() {
+        val title = subtaskEdit.text.toString().trim()
+        if (title.isEmpty()) {
+            Toast.makeText(this, "Введите название подзадачи", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        subtasks.add(
+            Subtask(
+                id = TaskRepository.getNewSubtaskId(),
+                title = title,
+                done = false
+            )
+        )
+        subtaskEdit.text.clear()
+        renderSubtasks()
+    }
+
+    private fun renderSubtasks() {
+        subtaskList.removeAllViews()
+
+        if (subtasks.isEmpty()) {
+            val emptyView = TextView(this).apply {
+                text = "Подзадач пока нет"
+            }
+            subtaskList.addView(emptyView)
+            return
+        }
+
+        subtasks.forEach { subtask ->
+            val row = LinearLayout(this).apply {
+                orientation = LinearLayout.HORIZONTAL
+            }
+            val titleView = TextView(this).apply {
+                text = "• ${subtask.title}"
+                layoutParams = LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f)
+            }
+            val removeButton = ImageButton(this).apply {
+                setImageResource(android.R.drawable.ic_menu_delete)
+                contentDescription = "Удалить подзадачу"
+                setBackgroundColor(android.graphics.Color.TRANSPARENT)
+                setOnClickListener {
+                    subtasks.removeAll { it.id == subtask.id }
+                    renderSubtasks()
+                }
+            }
+            row.addView(titleView)
+            row.addView(removeButton)
+            subtaskList.addView(row)
+        }
     }
 }

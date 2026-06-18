@@ -2,12 +2,14 @@ package com.example.smartplanner.data
 
 import com.example.smartplanner.model.Task
 import com.example.smartplanner.model.TaskPriority
+import com.example.smartplanner.model.Subtask
 import com.example.smartplanner.ui.tasks.TaskListItem
 
 object TaskRepository {
 
     private val tasks = mutableListOf<Task>()
     private var nextId = 1L
+    private var nextSubtaskId = 1L
     var highFirst: Boolean = true
 
     fun getNewId(): Long {
@@ -20,12 +22,33 @@ object TaskRepository {
         tasks.add(task)
     }
 
+    fun getNewSubtaskId(): Long {
+        val id = nextSubtaskId
+        nextSubtaskId += 1
+        return id
+    }
+
     fun toggleDone(id: Long) {
         val index = tasks.indexOfFirst { it.id == id }
         if (index >= 0) {
             val t = tasks[index]
             tasks[index] = t.copy(done = !t.done)
         }
+    }
+
+    fun toggleSubtask(taskId: Long, subtaskId: Long) {
+        val taskIndex = tasks.indexOfFirst { it.id == taskId }
+        if (taskIndex < 0) return
+
+        val task = tasks[taskIndex]
+        val updatedSubtasks = task.subtasks.map { subtask ->
+            if (subtask.id == subtaskId) {
+                subtask.copy(done = !subtask.done)
+            } else {
+                subtask
+            }
+        }
+        tasks[taskIndex] = task.copy(subtasks = updatedSubtasks)
     }
 
     fun getGroupedItems(): List<TaskListItem> {

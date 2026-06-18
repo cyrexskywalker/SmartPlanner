@@ -1,5 +1,11 @@
 package com.example.smartplanner.model
 
+data class Subtask(
+    val id: Long,
+    val title: String,
+    val done: Boolean
+)
+
 enum class TaskPriority {
     LOW, MEDIUM, HIGH;
 
@@ -18,5 +24,6 @@ data class Task(
     val priority: TaskPriority,
     val flagged: Boolean,
     val deadlineText: String?,
-    var done: Boolean
+    var done: Boolean,
+    val subtasks: List<Subtask>
 )

@@ -40,4 +40,12 @@ final class TasksViewModel: ObservableObject {
         guard let index = tasks.firstIndex(where: { $0.id == id }) else { return }
         tasks[index].isDone.toggle()
     }
+
+    func toggleSubtask(taskId: UUID, subtaskId: UUID) {
+        guard let taskIndex = tasks.firstIndex(where: { $0.id == taskId }) else { return }
+        guard let subtaskIndex = tasks[taskIndex].subtasks.firstIndex(where: { $0.id == subtaskId }) else {
+            return
+        }
+        tasks[taskIndex].subtasks[subtaskIndex].isDone.toggle()
+    }
 }

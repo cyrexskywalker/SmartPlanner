@@ -55,6 +55,13 @@
                     android:textColor="@android:color/darker_gray" />
 
             <LinearLayout
+                    android:id="@+id/layoutSubtasks"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginTop="8dp" />
+
+            <LinearLayout
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

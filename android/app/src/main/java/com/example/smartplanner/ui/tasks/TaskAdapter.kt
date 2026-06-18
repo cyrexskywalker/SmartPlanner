@@ -1,10 +1,12 @@
 package com.example.smartplanner.ui.tasks
 
+import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.smartplanner.R
@@ -12,7 +14,8 @@ import com.example.smartplanner.data.TaskRepository
 import com.example.smartplanner.model.TaskPriority
 
 class TaskAdapter(
-    private var items: List<TaskListItem>
+    private var items: List<TaskListItem>,
+    private val onTaskChanged: () -> Unit
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
@@ -60,7 +63,7 @@ class TaskAdapter(
         }
     }
 
-    class TaskViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    inner class TaskViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val doneBox: CheckBox = view.findViewById(R.id.checkDone)
         private val title: TextView = view.findViewById(R.id.textTitle)
         private val description: TextView = view.findViewById(R.id.textDescription)
@@ -69,16 +72,19 @@ class TaskAdapter(
         private val dotLow: View = view.findViewById(R.id.dotLow)
         private val dotMed: View = view.findViewById(R.id.dotMed)
         private val dotHigh: View = view.findViewById(R.id.dotHigh)
+        private val subtasksContainer: LinearLayout = view.findViewById(R.id.layoutSubtasks)
 
         fun bind(item: TaskListItem.Row) {
             val task = item.task
             title.text = task.title
+            setStrikeThrough(title, task.done)
 
             if (task.description.isNullOrEmpty()) {
                 description.visibility = View.GONE
             } else {
                 description.visibility = View.VISIBLE
                 description.text = task.description
+                setStrikeThrough(description, task.done)
             }
 
             if (task.deadlineText == null) {
@@ -104,10 +110,46 @@ class TaskAdapter(
 
             setDotColors(task.priority)
 
+            subtasksContainer.removeAllViews()
+            if (task.subtasks.isEmpty()) {
+                subtasksContainer.visibility = View.GONE
+            } else {
+                subtasksContainer.visibility = View.VISIBLE
+                task.subtasks.forEach { subtask ->
+                    val row = LayoutInflater.from(itemView.context)
+                        .inflate(R.layout.item_subtask, subtasksContainer, false)
+                    val subtaskCheck = row.findViewById<CheckBox>(R.id.checkSubtaskDone)
+                    val subtaskTitle = row.findViewById<TextView>(R.id.textSubtaskTitle)
+                    subtaskTitle.text = subtask.title
+                    setStrikeThrough(subtaskTitle, subtask.done)
+                    subtaskCheck.setOnCheckedChangeListener(null)
+                    subtaskCheck.isChecked = subtask.done
+                    subtaskCheck.setOnCheckedChangeListener { _, isChecked ->
+                        TaskRepository.toggleSubtask(task.id, subtask.id)
+                        setStrikeThrough(subtaskTitle, isChecked)
+                        onTaskChanged()
+                    }
+                    subtasksContainer.addView(row)
+                }
+            }
+
             doneBox.setOnCheckedChangeListener(null)
             doneBox.isChecked = task.done
-            doneBox.setOnCheckedChangeListener { _, _ ->
+            doneBox.setOnCheckedChangeListener { _, isChecked ->
                 TaskRepository.toggleDone(task.id)
+                setStrikeThrough(title, isChecked)
+                if (description.visibility == View.VISIBLE) {
+                    setStrikeThrough(description, isChecked)
+                }
+                onTaskChanged()
+            }
+        }
+
+        private fun setStrikeThrough(textView: TextView, enabled: Boolean) {
+            textView.paintFlags = if (enabled) {
+                textView.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+            } else {
+                textView.paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv()
             }
         }
     }

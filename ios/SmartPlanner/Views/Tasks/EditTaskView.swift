@@ -9,6 +9,8 @@ struct EditTaskView: View {
     @State private var isFlagged: Bool = false
     @State private var hasDeadline: Bool = false
     @State private var deadline: Date = Date()
+    @State private var newSubtaskTitle: String = ""
+    @State private var subtasks: [SubtaskModel] = []
 
     let onSave: (TaskModel) -> Void
 
@@ -26,6 +28,35 @@ struct EditTaskView: View {
 
                 Section("Приоритет") {
                     PrioritySelectorView(selected: $priority)
+                }
+
+                Section("Подзадачи") {
+                    HStack {
+                        TextField("Новая подзадача", text: $newSubtaskTitle)
+                        Button("Добавить") {
+                            addSubtask()
+                        }
+                        .disabled(newSubtaskTitle.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
+                    }
+
+                    if subtasks.isEmpty {
+                        Text("Подзадач пока нет")
+                            .foregroundColor(.gray)
+                    } else {
+                        ForEach(subtasks) { subtask in
+                            HStack {
+                                Image(systemName: "circle")
+                                    .foregroundColor(.gray)
+                                Text(subtask.title)
+                                Spacer()
+                                Button(role: .destructive) {
+                                    removeSubtask(id: subtask.id)
+                                } label: {
+                                    Image(systemName: "trash")
+                                }
+                            }
+                        }
+                    }
                 }
 
                 Section {
@@ -62,7 +93,8 @@ struct EditTaskView: View {
                             priority: priority,
                             isFlagged: isFlagged,
                             hasDeadline: hasDeadline,
-                            deadline: hasDeadline ? deadline : nil
+                            deadline: hasDeadline ? deadline : nil,
+                            subtasks: subtasks
                         )
                         onSave(task)
                         dismiss()
@@ -77,5 +109,16 @@ struct EditTaskView: View {
                 }
             }
         }
+    }
+
+    private func addSubtask() {
+        let trimmed = newSubtaskTitle.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !trimmed.isEmpty else { return }
+        subtasks.append(SubtaskModel(title: trimmed))
+        newSubtaskTitle = ""
+    }
+
+    private func removeSubtask(id: UUID) {
+        subtasks.removeAll { $0.id == id }
     }
 }
