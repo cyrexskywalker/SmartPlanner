@@ -2,6 +2,7 @@ import SwiftUI
 
 struct ContentView: View {
     @StateObject private var tasksViewModel = TasksViewModel()
+    @StateObject private var notesViewModel = NotesViewModel()
 
     var body: some View {
         TabView {
@@ -18,7 +19,8 @@ struct ContentView: View {
                     Text("Задачи")
                 }
 
-            Text("Записи")
+            NotesScreen()
+                .environmentObject(notesViewModel)
                 .tabItem {
                     Image(systemName: "square.and.pencil")
                     Text("Записи")

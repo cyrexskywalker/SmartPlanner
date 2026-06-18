@@ -10,12 +10,12 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.smartplanner.R
-import com.example.smartplanner.data.TaskRepository
 import com.example.smartplanner.model.TaskPriority
 
 class TaskAdapter(
     private var items: List<TaskListItem>,
-    private val onTaskChanged: () -> Unit
+    private val onTaskDoneChanged: (Long) -> Unit,
+    private val onSubtaskDoneChanged: (Long, Long) -> Unit
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
@@ -125,9 +125,8 @@ class TaskAdapter(
                     subtaskCheck.setOnCheckedChangeListener(null)
                     subtaskCheck.isChecked = subtask.done
                     subtaskCheck.setOnCheckedChangeListener { _, isChecked ->
-                        TaskRepository.toggleSubtask(task.id, subtask.id)
                         setStrikeThrough(subtaskTitle, isChecked)
-                        onTaskChanged()
+                        onSubtaskDoneChanged(task.id, subtask.id)
                     }
                     subtasksContainer.addView(row)
                 }
@@ -136,12 +135,11 @@ class TaskAdapter(
             doneBox.setOnCheckedChangeListener(null)
             doneBox.isChecked = task.done
             doneBox.setOnCheckedChangeListener { _, isChecked ->
-                TaskRepository.toggleDone(task.id)
                 setStrikeThrough(title, isChecked)
                 if (description.visibility == View.VISIBLE) {
                     setStrikeThrough(description, isChecked)
                 }
-                onTaskChanged()
+                onTaskDoneChanged(task.id)
             }
         }
 

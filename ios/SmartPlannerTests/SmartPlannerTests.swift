@@ -1,17 +1,32 @@
-//
-//  SmartPlannerTests.swift
-//  SmartPlannerTests
-//
-//  Created by Дмитрий on 30.11.2025.
-//
-
 import Testing
-@testable import SmartPlanner
+@testable import ios
 
 struct SmartPlannerTests {
 
-    @Test func example() async throws {
-        // Write your test here and use APIs like `#expect(...)` to check expected conditions.
+    @Test func notesViewModel_addNoteTrimsTextAndShowsNewestFirst() async throws {
+        let viewModel = NotesViewModel()
+
+        #expect(viewModel.addNote(text: " first note "))
+        #expect(viewModel.addNote(text: "second note"))
+
+        #expect(viewModel.notes.map(\.text) == ["second note", "first note"])
     }
 
+    @Test func notesViewModel_addNoteRejectsBlankText() async throws {
+        let viewModel = NotesViewModel()
+
+        #expect(!viewModel.addNote(text: "   "))
+        #expect(viewModel.notes.isEmpty)
+    }
+
+    @Test func notesViewModel_removeNoteDeletesOnlySelectedNote() async throws {
+        let viewModel = NotesViewModel()
+        _ = viewModel.addNote(text: "first")
+        _ = viewModel.addNote(text: "second")
+        let noteToRemove = try #require(viewModel.notes.first)
+
+        viewModel.removeNote(id: noteToRemove.id)
+
+        #expect(viewModel.notes.map(\.text) == ["first"])
+    }
 }

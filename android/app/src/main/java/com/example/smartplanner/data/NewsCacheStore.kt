@@ -9,13 +9,13 @@ class NewsCacheStore(context: Context) {
     private val preferences = context.getSharedPreferences("news_cache", Context.MODE_PRIVATE)
     private val payloadKey = "news_payload"
     private val savedAtKey = "news_saved_at"
-    private val maxAgeMillis = 24 * 60 * 60 * 1000L
+    private val cachePolicy = CachePolicy(maxAgeMillis = 24 * 60 * 60 * 1000L)
 
     fun load(): List<NewsArticle> {
         val savedAt = preferences.getLong(savedAtKey, 0L)
         val payload = preferences.getString(payloadKey, null) ?: return emptyList()
 
-        if (savedAt == 0L || System.currentTimeMillis() - savedAt > maxAgeMillis) {
+        if (!cachePolicy.isFresh(savedAt)) {
             clear()
             return emptyList()
         }

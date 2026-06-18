@@ -7,19 +7,20 @@ import java.io.File
 import java.io.FileOutputStream
 import java.net.URL
 import java.security.MessageDigest
+import com.example.smartplanner.data.CachePolicy
 
 object NewsImageCache {
     private val memoryCache = object : LruCache<String, Bitmap>((Runtime.getRuntime().maxMemory() / 8).toInt()) {
         override fun sizeOf(key: String, value: Bitmap): Int = value.byteCount
     }
-    private const val maxAgeMillis = 24 * 60 * 60 * 1000L
+    private val cachePolicy = CachePolicy(maxAgeMillis = 24 * 60 * 60 * 1000L)
 
     fun load(url: String, cacheDir: File): Bitmap? {
         memoryCache.get(url)?.let { return it }
 
         val file = imageFile(cacheDir, url)
         if (file.exists()) {
-            if (System.currentTimeMillis() - file.lastModified() > maxAgeMillis) {
+            if (!cachePolicy.isFresh(file.lastModified())) {
                 file.delete()
             } else {
                 BitmapFactory.decodeFile(file.absolutePath)?.let { bitmap ->

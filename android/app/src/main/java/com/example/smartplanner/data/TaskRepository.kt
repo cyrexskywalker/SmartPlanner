@@ -1,13 +1,12 @@
 package com.example.smartplanner.data
 
 import com.example.smartplanner.model.Task
-import com.example.smartplanner.model.TaskPriority
-import com.example.smartplanner.model.Subtask
-import com.example.smartplanner.ui.tasks.TaskListItem
+import com.example.smartplanner.model.TaskGroup
 
 object TaskRepository {
 
     private val tasks = mutableListOf<Task>()
+    private val groupingService = TaskGroupingService()
     private var nextId = 1L
     private var nextSubtaskId = 1L
     var highFirst: Boolean = true
@@ -51,29 +50,11 @@ object TaskRepository {
         tasks[taskIndex] = task.copy(subtasks = updatedSubtasks)
     }
 
-    fun getGroupedItems(): List<TaskListItem> {
-        val sorted = tasks.sortedWith { a, b ->
-            val cmp = if (highFirst) {
-                b.priority.ordinal.compareTo(a.priority.ordinal)
-            } else {
-                a.priority.ordinal.compareTo(b.priority.ordinal)
-            }
-            if (cmp != 0) cmp else a.id.compareTo(b.id)
-        }
+    fun getGroups(): List<TaskGroup> {
+        return groupingService.groupByPriority(tasks, highFirst)
+    }
 
-        val groups = sorted.groupBy { it.priority }
-        val priorities = TaskPriority.values().sortedWith { a, b ->
-            if (highFirst) b.ordinal.compareTo(a.ordinal) else a.ordinal.compareTo(b.ordinal)
-        }
-
-        val result = mutableListOf<TaskListItem>()
-        for (p in priorities) {
-            val group = groups[p] ?: continue
-            result.add(TaskListItem.Header(p))
-            for (task in group) {
-                result.add(TaskListItem.Row(task))
-            }
-        }
-        return result
+    fun hasTasks(): Boolean {
+        return tasks.isNotEmpty()
     }
 }

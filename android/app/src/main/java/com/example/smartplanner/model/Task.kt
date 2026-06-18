@@ -27,3 +27,8 @@ data class Task(
     var done: Boolean,
     val subtasks: List<Subtask>
 )
+
+data class TaskGroup(
+    val priority: TaskPriority,
+    val tasks: List<Task>
+)

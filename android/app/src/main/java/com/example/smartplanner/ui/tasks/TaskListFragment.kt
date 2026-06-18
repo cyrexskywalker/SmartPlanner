@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.smartplanner.R
 import com.example.smartplanner.data.TaskRepository
+import com.example.smartplanner.model.TaskGroup
 
 class TaskListFragment : Fragment() {
 
@@ -38,9 +39,17 @@ class TaskListFragment : Fragment() {
         addButton = view.findViewById(R.id.buttonAdd)
         sortCheckBox = view.findViewById(R.id.checkSortHighFirst)
 
-        adapter = TaskAdapter(TaskRepository.getGroupedItems()) {
-            reloadList()
-        }
+        adapter = TaskAdapter(
+            items = groupedItems(),
+            onTaskDoneChanged = { taskId ->
+                TaskRepository.toggleDone(taskId)
+                reloadList()
+            },
+            onSubtaskDoneChanged = { taskId, subtaskId ->
+                TaskRepository.toggleSubtask(taskId, subtaskId)
+                reloadList()
+            }
+        )
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = adapter
 
@@ -64,13 +73,26 @@ class TaskListFragment : Fragment() {
     }
 
     private fun reloadList() {
-        val items = TaskRepository.getGroupedItems()
-        adapter.submitList(items)
+        adapter.submitList(groupedItems())
         updateEmpty()
     }
 
     private fun updateEmpty() {
-        val hasTasks = TaskRepository.getGroupedItems().any { it is TaskListItem.Row }
-        emptyText.visibility = if (hasTasks) View.GONE else View.VISIBLE
+        emptyText.visibility = if (TaskRepository.hasTasks()) View.GONE else View.VISIBLE
+    }
+
+    private fun groupedItems(): List<TaskListItem> {
+        return groupsToListItems(TaskRepository.getGroups())
+    }
+
+    private fun groupsToListItems(groups: List<TaskGroup>): List<TaskListItem> {
+        return buildList {
+            groups.forEach { group ->
+                add(TaskListItem.Header(group.priority))
+                group.tasks.forEach { task ->
+                    add(TaskListItem.Row(task))
+                }
+            }
+        }
     }
 }
