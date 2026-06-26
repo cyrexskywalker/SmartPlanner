@@ -3,6 +3,7 @@ import Foundation
 final class TasksViewModel: ObservableObject {
     @Published var tasks: [TaskModel] = []
     @Published var highFirst: Bool = true
+    private let statsService = ProductivityStatsService()
 
     var groupedTasks: [PriorityGroup] {
         let sorted = tasks.sorted { first, second in
@@ -30,6 +31,10 @@ final class TasksViewModel: ObservableObject {
             }
         }
         return result
+    }
+
+    var productivityStats: ProductivityStats {
+        statsService.calculate(tasks: tasks)
     }
 
     func add(task: TaskModel) {

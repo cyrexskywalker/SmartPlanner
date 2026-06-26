@@ -14,6 +14,10 @@ struct TasksScreen: View {
     var body: some View {
         NavigationView {
             VStack {
+                ProductivityStatsView(stats: viewModel.productivityStats)
+                    .padding(.horizontal)
+                    .padding(.top, 8)
+
                 if viewModel.tasks.isEmpty {
                     Text("Задач нет")
                         .foregroundColor(.gray)

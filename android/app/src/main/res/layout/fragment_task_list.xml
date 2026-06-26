@@ -51,6 +51,59 @@
             android:visibility="gone"
             android:layout_marginTop="24dp" />
 
+    <LinearLayout
+            android:id="@+id/layoutProductivityStats"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:background="#11000000"
+            android:orientation="vertical"
+            android:padding="12dp">
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Статистика продуктивности"
+                android:textSize="17sp"
+                android:textStyle="bold" />
+
+        <TextView
+                android:id="@+id/textCompletionPercent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Выполнено 0%" />
+
+        <ProgressBar
+                android:id="@+id/progressCompletion"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:max="100"
+                android:progress="0" />
+
+        <TextView
+                android:id="@+id/textStatsSummary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Всего: 0 · Активных: 0 · Готово: 0" />
+
+        <TextView
+                android:id="@+id/textStatsDetails"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="Высокий приоритет: 0 · С флагом: 0 · С дедлайном: 0" />
+
+        <TextView
+                android:id="@+id/textSubtaskStats"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="Подзадачи: 0/0 выполнено" />
+    </LinearLayout>
+
     <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerTasks"
             android:layout_width="match_parent"

@@ -32,3 +32,15 @@ data class TaskGroup(
     val priority: TaskPriority,
     val tasks: List<Task>
 )
+
+data class ProductivityStats(
+    val totalTasks: Int,
+    val completedTasks: Int,
+    val activeTasks: Int,
+    val completionPercent: Int,
+    val highPriorityTasks: Int,
+    val flaggedTasks: Int,
+    val overdueOrDeadlineTasks: Int,
+    val totalSubtasks: Int,
+    val completedSubtasks: Int
+)

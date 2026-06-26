@@ -86,16 +86,32 @@ struct TasksViewModelTests {
         #expect(viewModel.tasks == [task])
     }
 
+    @Test func productivityStatsReflectsCurrentTasks() {
+        let viewModel = TasksViewModel()
+        viewModel.add(task: makeTask(title: "Done", priority: .high, isDone: true))
+        viewModel.add(task: makeTask(title: "Active", priority: .low, isDone: false))
+
+        let stats = viewModel.productivityStats
+
+        #expect(stats.totalTasks == 2)
+        #expect(stats.completedTasks == 1)
+        #expect(stats.activeTasks == 1)
+        #expect(stats.completionPercent == 50)
+        #expect(stats.highPriorityTasks == 1)
+    }
+
     private func makeTask(
         id: UUID = UUID(),
         title: String,
         priority: TaskPriority,
+        isDone: Bool = false,
         subtasks: [SubtaskModel] = []
     ) -> TaskModel {
         TaskModel(
             id: id,
             title: title,
             priority: priority,
+            isDone: isDone,
             subtasks: subtasks
         )
     }

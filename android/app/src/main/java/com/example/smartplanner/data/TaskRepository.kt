@@ -2,11 +2,13 @@ package com.example.smartplanner.data
 
 import com.example.smartplanner.model.Task
 import com.example.smartplanner.model.TaskGroup
+import com.example.smartplanner.model.ProductivityStats
 
 object TaskRepository {
 
     private val tasks = mutableListOf<Task>()
     private val groupingService = TaskGroupingService()
+    private val statsService = ProductivityStatsService()
     private var nextId = 1L
     private var nextSubtaskId = 1L
     var highFirst: Boolean = true
@@ -56,6 +58,10 @@ object TaskRepository {
 
     fun hasTasks(): Boolean {
         return tasks.isNotEmpty()
+    }
+
+    fun productivityStats(): ProductivityStats {
+        return statsService.calculate(tasks)
     }
 
     internal fun clearForTests() {

@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.ImageButton
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -21,6 +22,12 @@ class TaskListFragment : Fragment() {
     private lateinit var emptyText: TextView
     private lateinit var addButton: ImageButton
     private lateinit var sortCheckBox: CheckBox
+    private lateinit var statsContainer: View
+    private lateinit var completionText: TextView
+    private lateinit var completionProgress: ProgressBar
+    private lateinit var statsSummaryText: TextView
+    private lateinit var statsDetailsText: TextView
+    private lateinit var subtaskStatsText: TextView
     private lateinit var adapter: TaskAdapter
 
     override fun onCreateView(
@@ -38,6 +45,12 @@ class TaskListFragment : Fragment() {
         emptyText = view.findViewById(R.id.textEmpty)
         addButton = view.findViewById(R.id.buttonAdd)
         sortCheckBox = view.findViewById(R.id.checkSortHighFirst)
+        statsContainer = view.findViewById(R.id.layoutProductivityStats)
+        completionText = view.findViewById(R.id.textCompletionPercent)
+        completionProgress = view.findViewById(R.id.progressCompletion)
+        statsSummaryText = view.findViewById(R.id.textStatsSummary)
+        statsDetailsText = view.findViewById(R.id.textStatsDetails)
+        subtaskStatsText = view.findViewById(R.id.textSubtaskStats)
 
         adapter = TaskAdapter(
             items = groupedItems(),
@@ -75,10 +88,21 @@ class TaskListFragment : Fragment() {
     private fun reloadList() {
         adapter.submitList(groupedItems())
         updateEmpty()
+        updateStats()
     }
 
     private fun updateEmpty() {
         emptyText.visibility = if (TaskRepository.hasTasks()) View.GONE else View.VISIBLE
+    }
+
+    private fun updateStats() {
+        val stats = TaskRepository.productivityStats()
+        statsContainer.visibility = View.VISIBLE
+        completionText.text = "Выполнено ${stats.completionPercent}%"
+        completionProgress.progress = stats.completionPercent
+        statsSummaryText.text = "Всего: ${stats.totalTasks} · Активных: ${stats.activeTasks} · Готово: ${stats.completedTasks}"
+        statsDetailsText.text = "Высокий приоритет: ${stats.highPriorityTasks} · С флагом: ${stats.flaggedTasks} · С дедлайном: ${stats.overdueOrDeadlineTasks}"
+        subtaskStatsText.text = "Подзадачи: ${stats.completedSubtasks}/${stats.totalSubtasks} выполнено"
     }
 
     private fun groupedItems(): List<TaskListItem> {

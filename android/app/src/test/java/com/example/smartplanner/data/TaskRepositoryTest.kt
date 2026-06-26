@@ -88,6 +88,20 @@ class TaskRepositoryTest {
         assertEquals(listOf(TaskPriority.LOW, TaskPriority.HIGH), groups.map { it.priority })
     }
 
+    @Test
+    fun productivityStats_reflectsCurrentTaskState() {
+        TaskRepository.addTask(task(id = 1, priority = TaskPriority.HIGH, done = false))
+        TaskRepository.addTask(task(id = 2, priority = TaskPriority.LOW, done = true))
+
+        val stats = TaskRepository.productivityStats()
+
+        assertEquals(2, stats.totalTasks)
+        assertEquals(1, stats.completedTasks)
+        assertEquals(1, stats.activeTasks)
+        assertEquals(50, stats.completionPercent)
+        assertEquals(1, stats.highPriorityTasks)
+    }
+
     private fun task(
         id: Long,
         priority: TaskPriority,
